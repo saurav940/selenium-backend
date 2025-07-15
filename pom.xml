@@ -55,6 +55,20 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.9.0</version> <!-- or any stable version you prefer -->
+    <scope>compile</scope>
+</dependency>
+
+
+		<dependency>
+			<groupId>AOO_Assisted_Module</groupId>
+			<artifactId>AOO_Assisted_Module</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

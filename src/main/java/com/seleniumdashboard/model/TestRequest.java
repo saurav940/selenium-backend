@@ -5,10 +5,11 @@ public class TestRequest {
     private String testCase;
     private String browser;
 
-    // Getters & Setters
+    // Getters and setters
     public String getProject() {
         return project;
     }
+
     public void setProject(String project) {
         this.project = project;
     }
@@ -16,6 +17,7 @@ public class TestRequest {
     public String getTestCase() {
         return testCase;
     }
+
     public void setTestCase(String testCase) {
         this.testCase = testCase;
     }
@@ -23,6 +25,7 @@ public class TestRequest {
     public String getBrowser() {
         return browser;
     }
+
     public void setBrowser(String browser) {
         this.browser = browser;
     }

@@ -1,30 +1,60 @@
 package com.seleniumdashboard.controller;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.*;
 
 @RestController
-@RequestMapping("/api/projects")
-@CrossOrigin(origins = "*") // Add this to enable CORS
-public class ProjectController 
-{
+@RequestMapping("/api")
+@CrossOrigin(origins = "*")
+public class ProjectController {
 
-    @GetMapping
+    // Base workspace path
+    private final String baseWorkspacePath = "C:\\Users\\saurav.kumar\\eclipse-workspace";
+
+    // 1. Return fixed list of allowed projects
+    @GetMapping("/projects")
     public List<String> getProjects() {
-        File projectDir = new File("C:\\Users\\saurav.kumar\\eclipse-workspace");
-        String[] directories = projectDir.list((current, name) -> new File(current, name).isDirectory());
-
-        return directories != null ? Arrays.asList(directories) : Collections.emptyList();
+        return Arrays.asList(
+                "CapBankQA",
+                "CSFB.online_Re_KYC",
+                "AOO_Assisted_Module"
+        );
     }
-    
-    
+
+    // 2. Return browser for a given project by reading its config.properties
+    @GetMapping("/browser")
+    public List<String> getBrowserFromConfig(@RequestParam String project) {
+        List<String> browsers = new ArrayList<>();
+        try {
+            // Full path to config.properties
+            String configPath = baseWorkspacePath + "\\" + project + "\\configuration\\config.properties";
+            File configFile = new File(configPath);
+
+            if (!configFile.exists()) {
+                return Collections.singletonList("⚠ Config file not found");
+            }
+
+            // Load properties
+            FileInputStream fis = new FileInputStream(configFile);
+            Properties props = new Properties();
+            props.load(fis);
+
+            String browser = props.getProperty("browser");
+
+            if (browser != null && !browser.isBlank()) {
+                browser = browser.trim().toLowerCase(); // Normalize casing
+                browsers.add(browser);
+            } else {
+                browsers.add("⚠ Browser not set in config");
+            }
+
+        } catch (Exception e) {
+            browsers.add("❌ Error: " + e.getMessage());
+        }
+
+        return browsers;
+    }
 }
-
-
