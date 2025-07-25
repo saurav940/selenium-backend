@@ -1,11 +1,13 @@
 package com.seleniumdashboard.model;
 
+import java.util.List;
+
 public class TestRequest {
     private String project;
-    private String testCase;
+    private List<String> testCases;  // ✅ Supports multiple test cases
     private String browser;
 
-    // Getters and setters
+    // Getters and Setters
     public String getProject() {
         return project;
     }
@@ -14,12 +16,12 @@ public class TestRequest {
         this.project = project;
     }
 
-    public String getTestCase() {
-        return testCase;
+    public List<String> getTestCases() {
+        return testCases;
     }
 
-    public void setTestCase(String testCase) {
-        this.testCase = testCase;
+    public void setTestCases(List<String> testCases) {
+        this.testCases = testCases;
     }
 
     public String getBrowser() {
